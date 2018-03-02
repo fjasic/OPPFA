@@ -1,0 +1,18 @@
+import sys
+skup=set()
+lista1=((),)
+lista2=((),)
+lista3=((),)
+lista1=tuple(int(x) for x in input('unesi 4 integera: ').split(' '))
+lista2=tuple(float(x) for x in input('unesi 4 floata: ').split(' '))
+lista3=tuple(x for x in input('unesi 4 stringa: ').split(' '))
+print('integeri su: ',lista1)
+print('floatovi su: ',lista2)
+print('stringovi su: ',lista3)
+skup.add(lista1)
+skup.add(lista2)
+skup.add(lista3)
+print("skup je: ",skup)
+skup.remove(lista1)
+print("sada je skup: ,",skup)
+
