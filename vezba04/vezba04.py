@@ -128,4 +128,4 @@ if __name__ == "__main__":
     for i in range(1,10000,500):
         #test_heap_sort(i)
         #test_bucket_sort(i)
-        test_counting_sort()
+        test_counting_sort(i)
