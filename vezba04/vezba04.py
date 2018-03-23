@@ -5,13 +5,10 @@ def random_list (min, max, elements):
     list = random.sample(range(min, max), elements)
     return list
 
-
-###################
-
-#MAX_HEAPIFY
-
-
-###################
+#########################################
+#########################################
+#heapsort
+#########################################
 
 #parent
 def parent(i):
@@ -60,12 +57,10 @@ def test_heap_sort(element):
     end_time=time.clock() - start_time
     print("heap sorting DURATION for "+str(element-1) + " elements is " + str(end_time))
 
-
-################################
-
+############################################
+############################################
 #bucket sort
-
-################################
+############################################
 def random_list1(min, max, elements):
     list1 = [random.choice(range(min, max)) for _ in range(elements)]
     return list1
@@ -88,19 +83,19 @@ def bucket_sort(A):
     for i in range(size - 1):
         A += B[i]
 
-
-
-################################
 def test_bucket_sort(element):
     start_time=time.clock()
-    nesortian_niz=random_list1(0,100,element)
+    nesortian_niz=random_list1(1,100,element)
     print("nesortirani niz izgleda ovako :",nesortian_niz)
     bucket_sort(nesortian_niz)
     print("bucket sortiranje,niz izgleda ovako",nesortian_niz)
     end_time=time.clock() - start_time
     print("heap sorting DURATION for "+str(element-1) + " elements is " + str(end_time))
 
-################################
+#############################################
+#############################################
+#counting_sort
+#############################################
 def counting_sort(A,B,k):
     C=[0]*k
     for j in range(len(A)):
@@ -125,6 +120,12 @@ def test_counting_sort(elements):
     end_time=time.clock()-start_time
     print("DURATION counting sort :",end_time)
 
+##############################################
+##############################################
+#testiranje
+##############################################
 if __name__ == "__main__":
     for i in range(1,10000,500):
-        test_counting_sort(i)
+        #test_heap_sort(i)
+        #test_bucket_sort(i)
+        test_counting_sort()
