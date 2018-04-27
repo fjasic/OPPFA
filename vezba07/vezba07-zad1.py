@@ -39,7 +39,7 @@ class ChaindedHash:
         return k % m
 
     def hash1(self, k):
-        return self.hash(k)
+        return self.hash3(k)
 
     def hash2(self, k):
         KNUTH = 0.6180339887
@@ -64,11 +64,11 @@ def test(n, p, m):
         L.insert_hash(x)
 
     end_time = time.clock()
-    print("duration: ", (end_time - start_time), "n: ", n, "p: ", p, "m: ", m)
+    print("duration:", (end_time - start_time), " n: ", n, " p: ", p, " m: ", m)
 
 
 if __name__ == "__main__":
-    for n in [10000, 50000, 100000]:
+    for n in [500,10000, 50000, 100000]:
         for p in [23, 9973, 99991]:
             for m in [p, p // 2, p // 4]:
                 test(n, p, m)

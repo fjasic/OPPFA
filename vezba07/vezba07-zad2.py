@@ -40,7 +40,7 @@ class HashTable:
         return None
 
     def hash_delete(self, x):
-        h = self.hash1(x.key)
+        h = self.hash(x.key)
         if x in self.T[h]:
             self.T[h].remove(x)
 
@@ -76,9 +76,9 @@ def test(n, m):
     for i in l:
         L.hash_insert(i)
 
-    end_time = time.clock() - start_time
+    end_time = time.clock()
 
-    print("n:", n, "m:", m, "duration:", end_time)
+    print( "duration:", end_time-start_time,"n:", n, "m:", m)
 
 
 if __name__ == "__main__":
