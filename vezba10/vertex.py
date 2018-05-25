@@ -1,14 +1,11 @@
-import sys
 from math import inf
-from queue import Queue as queue
 from random import randint
 
 class Edge:
-    def __init__(self, first, second, val):
-        self.first = first
-        self.second = second
-        self.val = val
-
+    def __init__(self, source, destination, weight):
+        self.source = source
+        self.destination = destination
+        self.weight = weight
 
 class Vertex:
     def __init__(self, val):
@@ -23,47 +20,19 @@ class Vertex:
 
 def find_edge_value(w, u, v):
     for x in w:
-        if x.first == u and x.second == v:
-            return x.val
+        if x.source == u and x.destination == v:
+            return x.weight
     return inf
 
 def print_path(G, s, v):
     if v == s:
-        print(s.val, end = " ")
+        print(s.val, end =" " + "->")
     elif v.p == None:
-        print ("no path found from", s.val, "to", v.val, "exists")
+        print ("nema putanje od", s.val, "do", v.val)
     else:
         print_path(G, s, v.p)
-        print(v.val, end = " ")
+        print(v.val, end = " "+ "->")
 
-def initialize_single_source(G, s):
-    for v in G:
-        v.d = inf
-        v.p = None
-    s.d = 0
-
-def extract_min(G):
-    m = G[0]
-    for v in G:
-        if v.d < m.d:
-            m = v
-    G.remove(m)
-    return m
-
-def relax(u, v, w):
-    if v.d > u.d + find_edge_value(w, u, v):
-        v.d = u.d + find_edge_value(w, u, v)
-        v.p = u
-
-def dijkstra(G, w, s):
-    initialize_single_source(G, s)
-    S = []
-    Q = G[:]
-    while Q:
-        u = extract_min(Q)
-        S.append(u)
-        for v in G:
-            relax(u, v, w)
 
 def generate_graph(n, m, edge):
     N = n
@@ -82,8 +51,85 @@ def generate_graph(n, m, edge):
 
 def print_graph(G, w):
     for v in G:
-        print("Node:", v.val)
+        print("za cvor:", v.val+1)
         for edge in w:
-            if edge.first == v:
-                print("\tEdge:", edge.second.val, "Distance:", edge.val)
+            if edge.source == v:
+                print("Ivica:", edge.destination.val, "Cena:", edge.weight)
         print()
+
+def relax(u, v, w):
+    if v.d > u.d + find_edge_value(w, u, v):
+        v.d = u.d + find_edge_value(w, u, v)
+        v.p = u
+
+def initialize_single_source(G, s):
+    for v in G:
+        v.d = inf
+        v.p = None
+    s.d = 0
+
+def dijkstra(G, w, s):
+    initialize_single_source(G, s)
+    S = []
+    Q = G[:]
+    while Q:
+        u = extract_min(Q)
+        S.append(u)
+        for v in G:
+            relax(u, v, w)
+
+def extract_min(G):
+    m = G[0] #prvi u listi
+    for v in G:
+        if v.d < m.d:
+            m = v
+    G.remove(m)
+    return m
+
+
+if __name__=="__main__":
+    s=Vertex("s")
+    t=Vertex("t")
+    y=Vertex("y")
+    x=Vertex("x")
+    z=Vertex("z")
+
+    G=[s,t,z,x,y]
+    w=[]
+
+    w.append(Edge(s,y,5))
+    w.append(Edge(s,t,10))
+
+    w.append(Edge(y,t,3))
+    w.append(Edge(y,z,2))
+    w.append(Edge(y,x,9))
+
+    w.append(Edge(t,x,1))
+    w.append(Edge(t,y,2))
+
+    w.append(Edge(z,x,6))
+    w.append(Edge(z,s,7))
+
+    w.append(Edge(x,z,4))
+
+    dijkstra(G,w,s)
+
+    for v in G:
+        print("putanja",s.val,"->",v.val,":")
+        print_path(G,s,v)
+        print(v.d)
+
+    print("-----------------------")
+    print("random generisani graph")
+    (G,w)=generate_graph(5,5,10)
+    s=G[0]
+
+    print_graph(G,w)
+
+    dijkstra(G,w,s)
+
+    for v in G:
+        print("putanja", s.val, "->", v.val, ":")
+        print_path(G, s, v)
+        print("ukupna putanja",v.d)
+
